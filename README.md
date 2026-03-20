@@ -1,13 +1,23 @@
-<h1 align="center">Hi 👋, I'm Animesh Sahoo</h1>
-<h3 align="center">🚀 AI/ML Developer | Software Engineer | Building Real-World AI Systems</h3>
+<h1 align="center">⚡ Animesh Sahoo ⚡</h1>
+
+<p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?color=00F7FF&size=28&center=true&vCenter=true&width=600&lines=AI%2FML+Developer;Backend+Engineer;Building+Real-World+AI+Systems;Future+AI+Architect" />
+</p>
+
+<p align="center">
+  🚀 <a href="https://animesh6532.netlify.app/">Portfolio</a> • 
+  💼 <a href="https://linkedin.com/in/animesh-sahoo-b03151302">LinkedIn</a> • 
+  📧 <a href="mailto:animeshsahoo451@gmail.com">Email</a>
+</p>
 
 ---
 
-## 🧠 About Me
-- 🎓 B.Tech CSE (AI & ML) @ Brainware University (2023–2027)
-- 🤖 Passionate about **AI, Machine Learning & Backend Systems**
-- 💡 I build **real-world AI applications**, not just theory
-- ⚡ Strong in **problem-solving, system thinking & data-driven development**
+## 🧠 Who Am I?
+
+```diff
++ AI/ML Developer who builds real-world systems
++ Strong in Backend + AI Integration
++ Focused on solving real problems using data
 
 ---
 
