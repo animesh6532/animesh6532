@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=35&duration=3000&color=00F7FF&center=true&vCenter=true&width=700&lines=⚡+Animesh+Sahoo+⚡;AI%2FML+Developer;Backend+Engineer;Building+Real-World+AI+Systems" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=35&duration=3000&color=00F7FF&center=true&vCenter=true&width=700&lines=⚡+Animesh+Sahoo+⚡;AI%2FML+Developer;Software Developer;Building+Real-World+AI+Systems" />
 </h1>
 
 <p align="center">
@@ -24,8 +24,10 @@
 
 ## 🧠 About Me
 
+## 🧠 About Me
+
 <p align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=STROM6532&theme=algolia&no-frame=true&row=1&column=6"/>
+  <img src="https://media.giphy.com/media/ZVik7pBtu9dNS/giphy.gif" width="250"/>
 </p>
 
 ```diff
