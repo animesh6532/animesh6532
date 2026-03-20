@@ -79,7 +79,13 @@ Machine learning model with 92% accuracy
 ## 🧬 Currently Exploring
 
 <p align="center">
-  ⚡ Advanced Machine Learning • ⚙️ System Design • ☁️ Cloud Scaling
+  <img src="https://skillicons.dev/icons?i=python,tensorflow,nodejs,aws&theme=dark" />
+</p>
+
+<p align="center">
+  ⚡ <b>Advanced Machine Learning</b> &nbsp;&nbsp;•&nbsp;&nbsp; 
+  ⚙️ <b>System Design</b> &nbsp;&nbsp;•&nbsp;&nbsp; 
+  ☁️ <b>Cloud Scaling</b>
 </p>
 
 ---
@@ -87,7 +93,10 @@ Machine learning model with 92% accuracy
 ## 🏆 Achievements
 
 <p align="center">
-  🧠 Samsung AI • 🤖 IBM GenAI • 🏆 Smart India Hackathon • ⚡ Nexathon
+  <img src="https://img.shields.io/badge/Samsung-AI-blue?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/IBM-GenAI-black?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/SIH-Hackathon-orange?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Nexathon-Participant-green?style=for-the-badge"/>
 </p>
 
 ---
