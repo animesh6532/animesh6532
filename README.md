@@ -68,21 +68,22 @@
 
 <div align="center">
 
-<a href="https://github.com/animesh6532/wellnessai">
-  <img src="https://github-readme-stats.vercel.app/api/pin/?username=animesh6532&repo=wellnessai&theme=tokyonight&hide_border=true" />
+<a href="https://github.com/animesh6532/NeuroPath">
+  <img src="https://github-readme-stats.vercel.app/api/pin/?username=animesh6532&repo=NeuroPath&theme=tokyonight&hide_border=true" />
 </a>
 
-<a href="https://github.com/animesh6532/MINDHAVEN">
-  <img src="https://github-readme-stats.vercel.app/api/pin/?username=animesh6532&repo=MINDHAVEN&theme=tokyonight&hide_border=true" />
-</a>
-
-<a href="https://github.com/animesh6532/credit-card-fraud-detection">
-  <img src="https://github-readme-stats.vercel.app/api/pin/?username=animesh6532&repo=credit-card-fraud-detection&theme=tokyonight&hide_border=true" />
+<a href="https://github.com/animesh6532/Stock_Price_Prediction">
+  <img src="https://github-readme-stats.vercel.app/api/pin/?username=animesh6532&repo=Stock_Price_Prediction&theme=tokyonight&hide_border=true" />
 </a>
 
 </div>
 
 <div align="center">
+
+### ⚡ Repositories that reflect my real development work, AI projects, and engineering direction
+
+</div>
+
 
 ### ⚡ Core repositories that represent my strongest work and engineering direction
 
