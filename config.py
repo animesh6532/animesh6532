@@ -87,22 +87,26 @@ class ProjectConfig:
     """Configuration settings and layout defaults for the terminal profile generator."""
 
     developer_name: str = "Animesh Sahoo"
-    role: str = "AI/ML Engineer"
-    languages: List[str] = field(default_factory=lambda: ["Python", "Java", "C", "SQL"])
-    frameworks: List[str] = field(default_factory=lambda: ["Flask", "FastAPI", "PyTorch", "Docker"])
-    operating_system: str = "Windows / Linux"
-    editor: str = "VS Code"
-    location: str = "India"
-    status: str = "Building open source"
-    experience: str = "5+ years"
+    role: str = "Software Developer / AI/ML Engineer"
+    languages: List[str] = field(default_factory=lambda: ["Python", "SQL", "C", "Java"])
+    frameworks: List[str] = field(default_factory=lambda: ["PyTorch", "FastAPI", "Docker", "Flask"])
+    operating_system: str = "Linux / Windows"
+    editor: str = "VS Code / Neovim"
+    location: str = "West Bengal, India"
+    status: str = "Building AI Products"
+    university: str = "Brainware University"
+    experience: str = "Bluestock Fintech • Infotact Solutions"
     portfolio: str = "https://animesh6532.netlify.app/"
     github: str = "https://github.com/animesh6532"
-    current_project: str = "GitHub Terminal Profile Generator"
+    linkedin: str = "https://linkedin.com/in/animesh-sahoo"
+    email: str = "animeshsahoo.work@gmail.com"
+    current_project: str = "NeuroPath AI & StartupForge AI"
+    projects: List[str] = field(default_factory=lambda: ["NeuroPath AI", "StartupForge AI", "NexTwin AI"])
     repository_count: int = 17
     stars: int = 120
     followers: int = 350
     commits: int = 1842
-    skills: List[str] = field(default_factory=lambda: ["Python", "Pillow", "NumPy", "SVG", "GitHub Actions"])
+    skills: List[str] = field(default_factory=lambda: ["Backend", "AI", "Machine Learning", "Python"])
     image_path: str = "assets/profile.jpg"
     ascii_width: int = 90
     theme: str = "tokyo_night"
@@ -110,11 +114,11 @@ class ProjectConfig:
     typing_speed: float = 1.0
     glow_intensity: float = 2.4
     scanline_speed: float = 8.0
-    terminal_width: int = 900
-    terminal_height: int = 560
+    terminal_width: int = 980
+    terminal_height: int = 620
     ascii_chars: str = "@%#*+=-:. "
     density_mode: str = "balanced"
-    learning: str = "Deep Learning & Rust"
+    learning: str = "NexTwin AI / LLMs"
     font_family: str = "JetBrains Mono, Fira Code, Courier New, monospace"
     panel_padding: int = 20
     panel_margin: int = 15
