@@ -38,7 +38,7 @@ class TerminalAnimator:
             defs = ET.Element("{http://www.w3.org/2000/svg}defs")
             root.insert(0, defs)
 
-        # 2. Inject CSS Stylesheet
+        # 2. Inject CSS Stylesheet (using config.cursor_speed)
         style_content = f"""
         @keyframes crt-flicker {{
             0% {{ opacity: 0.985; }}
@@ -78,7 +78,7 @@ class TerminalAnimator:
             animation: crt-flicker 0.16s infinite;
         }}
         .blinking-cursor {{
-            animation: blink-cursor 0.8s infinite;
+            animation: blink-cursor {self.config.cursor_speed}s infinite;
         }}
         .pulse-border {{
             animation: border-pulse 4s ease-in-out infinite;
@@ -104,20 +104,19 @@ class TerminalAnimator:
         style_el.text = style_content
         defs.append(style_el)
 
-        # 3. Create Clipping Paths for Boot Console Logs
-        # Group 1: 4 lines, types from t=0.0s to 1.1s, fades out at t=1.15s.
-        # Group 2: 4 lines, types from t=1.2s to 2.3s, fades out at t=2.4s.
+        # 3. Create Clipping Paths for Console Logs
+        # Console starts at y=485, logs run at y=521, 532, 543, 554.
         boot_timeline = [
             # Group 1 (begin, dur)
-            ("Booting Terminal...", 0.0, 0.25),
-            ("Loading Environment...", 0.25, 0.25),
-            ("Loading Modules...", 0.5, 0.25),
-            ("Loading GitHub Profile...", 0.75, 0.25),
+            ("Booting Developer Console...", 0.0, 0.25),
+            ("Loading Profile...", 0.25, 0.25),
+            ("Loading Resume...", 0.5, 0.25),
+            ("Loading AI Projects...", 0.75, 0.25),
             # Group 2
-            ("Loading Repository Data...", 1.2, 0.25),
-            ("Rendering Portrait...", 1.45, 0.25),
-            ("Initializing Dashboard...", 1.7, 0.25),
-            ("Ready.", 1.95, 0.25)
+            ("Loading GitHub Data...", 1.2, 0.25),
+            ("Loading Contribution Graph & Widgets...", 1.45, 0.25),
+            ("Rendering Portrait...", 1.7, 0.25),
+            ("Dashboard Ready.", 1.95, 0.25)
         ]
 
         # Inject clip paths for boot lines
@@ -125,21 +124,20 @@ class TerminalAnimator:
             clip_id = f"boot-clip-{idx}"
             clip_path = ET.Element("{http://www.w3.org/2000/svg}clipPath", attrib={"id": clip_id})
             
-            # Row index inside console (0 to 3)
             row_idx = idx % 4
-            y_pos = 515 + row_idx * 13
+            y_pos = 521 + row_idx * 11
             rect = ET.Element("{http://www.w3.org/2000/svg}rect", attrib={
                 "x": "80",
-                "y": str(y_pos - 10),
+                "y": str(y_pos - 9),
                 "width": "0",
-                "height": "14"
+                "height": "13"
             })
             
             begin_time = f"{start * self.config.typing_speed}s"
             anim = ET.Element("{http://www.w3.org/2000/svg}animate", attrib={
                 "attributeName": "width",
                 "from": "0",
-                "to": "350",
+                "to": "450",
                 "dur": f"{dur * self.config.typing_speed}s",
                 "begin": begin_time,
                 "fill": "freeze"
@@ -152,7 +150,7 @@ class TerminalAnimator:
         prompt_clip = ET.Element("{http://www.w3.org/2000/svg}clipPath", attrib={"id": "prompt-clip"})
         prompt_rect = ET.Element("{http://www.w3.org/2000/svg}rect", attrib={
             "x": "80",
-            "y": "520",
+            "y": "528",
             "width": "0",
             "height": "20"
         })
@@ -161,7 +159,7 @@ class TerminalAnimator:
         prompt_anim = ET.Element("{http://www.w3.org/2000/svg}animate", attrib={
             "attributeName": "width",
             "from": "0",
-            "to": "400",
+            "to": "450",
             "dur": prompt_dur,
             "begin": prompt_begin,
             "fill": "freeze"
@@ -203,12 +201,12 @@ class TerminalAnimator:
             # Insert texts into groups
             for idx, (text_str, start, dur) in enumerate(boot_timeline):
                 row_idx = idx % 4
-                y_pos = 515 + row_idx * 13
+                y_pos = 521 + row_idx * 11
                 text_el = ET.Element("{http://www.w3.org/2000/svg}text", attrib={
                     "x": "80",
                     "y": str(y_pos),
                     "fill": self.palette_color("text"),
-                    "font-size": "9px",
+                    "font-size": "9.5px",
                     "font-family": self.config.font_family,
                     "clip-path": f"url(#boot-clip-{idx})",
                     "opacity": "0"
@@ -239,10 +237,10 @@ class TerminalAnimator:
                     g2.append(text_el)
 
             # 5. Populate and Animate Interactive Console Prompt
-            # Standard prompt types centered vertically at y=534
+            # Standard prompt types centered vertically at y=542
             prompt_text_el = ET.Element("{http://www.w3.org/2000/svg}text", attrib={
                 "x": "80",
-                "y": "534",
+                "y": "542",
                 "fill": self.palette_color("accent"),
                 "font-size": "9.5px",
                 "font-family": self.config.font_family,
@@ -263,12 +261,11 @@ class TerminalAnimator:
             boot_logs_g.append(prompt_text_el)
 
             # Blinking cursor block: █
-            # Prompt prefix = 19 chars. Total chars = 48 chars. Char width = ~5.4px.
             # Start x = 80 + 19 * 5.4 = ~182.
             # End x = 80 + 48 * 5.4 = ~339.
             cursor_el = ET.Element("{http://www.w3.org/2000/svg}text", attrib={
                 "x": "182",
-                "y": "534",
+                "y": "542",
                 "fill": self.palette_color("green"),
                 "font-size": "9.5px",
                 "font-family": self.config.font_family,
@@ -299,7 +296,6 @@ class TerminalAnimator:
             boot_logs_g.append(cursor_el)
 
         # 6. Duplicate and Animate Portrait Layers
-        # We stagger rows of `#ascii-portrait-a` and hide them initially
         # Stagger start = 1.45s (when rendering portrait types)
         stagger_start = 1.45 * self.config.animation_speed
         

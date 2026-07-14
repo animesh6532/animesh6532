@@ -63,13 +63,13 @@ class TerminalSVGBuilder:
         grad.add_stop_color(1, self.palette["background"])
         defs.add(grad)
 
-        # Glow filter (fix double spaces in color matrix)
+        # Glow filter
         glow_filter = dwg.filter(id="glow", x="-30%", y="-30%", width="160%", height="160%")
         glow_filter.feGaussianBlur(in_="SourceGraphic", stdDeviation=f"{self.config.glow_intensity}", result="blur")
         glow_filter.feColorMatrix(type="matrix", values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1.7 0", result="glow")
         defs.add(glow_filter)
 
-        # Noise filter (fix double spaces in color matrix)
+        # Noise filter
         noise_filter = dwg.filter(id="noise", x="0", y="0", width="100%", height="100%")
         noise_filter.feTurbulence(type="fractalNoise", baseFrequency="0.8", numOctaves="2", seed="3", result="noise")
         noise_filter.feColorMatrix(type="matrix", values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.08 0")
@@ -92,36 +92,35 @@ class TerminalSVGBuilder:
         title_bar.add(dwg.circle(center=(90, 68), r=6, fill="#FFBD2E"))
         title_bar.add(dwg.circle(center=(110, 68), r=6, fill="#27C93F"))
         # Window Address/Console header
-        title_bar.add(dwg.rect(insert=(160, 54), size=(320, 24), rx=12, ry=12, fill=self.palette["background"], stroke=self.palette["border"], stroke_width=1))
-        title_bar.add(dwg.text("animesh@developer-console: ~/resume", insert=(175, 70), fill=self.palette["muted"], font_size="11px", font_family=self.config.font_family))
+        title_bar.add(dwg.rect(insert=(160, 54), size=(340, 24), rx=12, ry=12, fill=self.palette["background"], stroke=self.palette["border"], stroke_width=1))
+        title_bar.add(dwg.text("animesh@developer-console: ~/profile", insert=(175, 70), fill=self.palette["muted"], font_size="11px", font_family=self.config.font_family))
         main_panel.add(title_bar)
 
         # ==========================================
-        # LEFT REGION (ASCII CANVAS & CONSOLE)
+        # LEFT REGION: 70% WIDTH - HUGE ASCII PORTRAIT
         # ==========================================
         left_area = dwg.g(id="left-area")
+        left_panel_w = self.config.left_panel_width
         
-        # Left Panel 1: ASCII Canvas
-        left_area.add(dwg.rect(insert=(60, 100), size=(560, 380), rx=16, ry=16, fill=self.palette["panel"], stroke=self.palette["border"], stroke_width=1.2))
-        left_area.add(dwg.text("LIVING ASCII PORTRAIT", insert=(80, 128), fill=self.palette["accent"], font_size="10px", font_weight="bold", font_family=self.config.font_family))
-        left_area.add(dwg.line(start=(80, 136), end=(600, 136), stroke=self.palette["border"], stroke_width=1))
+        left_area.add(dwg.rect(insert=(60, 100), size=(left_panel_w, 370), rx=16, ry=16, fill=self.palette["panel"], stroke=self.palette["border"], stroke_width=1.2))
+        left_area.add(dwg.text("HUGE LIVING ASCII PORTRAIT", insert=(80, 128), fill=self.palette["accent"], font_size="10px", font_weight="bold", font_family=self.config.font_family))
+        left_area.add(dwg.line(start=(80, 136), end=(60 + left_panel_w - 20, 136), stroke=self.palette["border"], stroke_width=1))
 
         # Generate three frames of character shifted ASCII for the morphing/living effect
         perturbed_1 = self.perturb_ascii(ascii_lines, self.config.ascii_chars, 0.25, seed=42)
         perturbed_2 = self.perturb_ascii(ascii_lines, self.config.ascii_chars, 0.25, seed=43)
 
-        # Portrait dimensions: width of characters ~4.3px at 7.2px font-size.
-        # Center in 560px width left panel. 90 chars * 4.3px = ~387px. Padding = (560 - 387)//2 = 86px.
-        # x_start = 60 + 86 = 146.
-        x_start = 146
-        y_start = 158
+        # Portrait dimensions: width of characters ~5.1px at 8.5px font-size.
+        # Center in Left panel. 90 chars * 5.1px = ~459px. Padding = (left_panel_w - 459)//2.
+        x_start = 60 + (left_panel_w - 459) // 2
+        y_start = 152
         line_height = 6.4
 
         # Group A (Base Frame)
         port_a = dwg.g(id="ascii-portrait-a", class_="shimmer-a")
         for idx, line in enumerate(ascii_lines[:48]):
             y_pos = y_start + idx * line_height
-            text_el = dwg.text(line, insert=(x_start, y_pos), fill=self.palette["text"], font_size="7.2px", font_family=self.config.font_family)
+            text_el = dwg.text(line, insert=(x_start, y_pos), fill=self.palette["text"], font_size="8.5px", font_family=self.config.font_family)
             text_el["xml:space"] = "preserve"
             port_a.add(text_el)
         left_area.add(port_a)
@@ -130,7 +129,7 @@ class TerminalSVGBuilder:
         port_b = dwg.g(id="ascii-portrait-b", class_="shimmer-b", opacity="0")
         for idx, line in enumerate(perturbed_1[:48]):
             y_pos = y_start + idx * line_height
-            text_el = dwg.text(line, insert=(x_start, y_pos), fill=self.palette["text"], font_size="7.2px", font_family=self.config.font_family)
+            text_el = dwg.text(line, insert=(x_start, y_pos), fill=self.palette["text"], font_size="8.5px", font_family=self.config.font_family)
             text_el["xml:space"] = "preserve"
             port_b.add(text_el)
         left_area.add(port_b)
@@ -139,78 +138,88 @@ class TerminalSVGBuilder:
         port_c = dwg.g(id="ascii-portrait-c", class_="shimmer-c", opacity="0")
         for idx, line in enumerate(perturbed_2[:48]):
             y_pos = y_start + idx * line_height
-            text_el = dwg.text(line, insert=(x_start, y_pos), fill=self.palette["text"], font_size="7.2px", font_family=self.config.font_family)
+            text_el = dwg.text(line, insert=(x_start, y_pos), fill=self.palette["text"], font_size="8.5px", font_family=self.config.font_family)
             text_el["xml:space"] = "preserve"
             port_c.add(text_el)
         left_area.add(port_c)
 
-        # Left Panel 2: Bottom left Console (Boot logs area)
-        left_area.add(dwg.rect(insert=(60, 495), size=(560, 72), rx=12, ry=12, fill=self.palette["panel"], stroke=self.palette["border"], stroke_width=1.2))
-        
-        # Placeholder Group for boot sequence logs (populated by animate_terminal.py)
-        boot_logs = dwg.g(id="boot-logs")
-        left_area.add(boot_logs)
         main_panel.add(left_area)
 
         # ==========================================
-        # RIGHT REGION (DEVELOPER DASHBOARD)
+        # RIGHT REGION: 30% WIDTH - DEVELOPER DASHBOARD
         # ==========================================
         right_panel = dwg.g(id="right-panel")
-        right_panel.add(dwg.rect(insert=(635, 100), size=(285, 467), rx=16, ry=16, fill=self.palette["panel"], stroke=self.palette["border"], stroke_width=1.2))
+        right_panel_w = self.config.right_panel_width
+        right_x = 60 + left_panel_w + 15
+        
+        right_panel.add(dwg.rect(insert=(right_x, 100), size=(right_panel_w, 370), rx=16, ry=16, fill=self.palette["panel"], stroke=self.palette["border"], stroke_width=1.2))
         
         # Dashboard Header
-        right_panel.add(dwg.text("DEVELOPER DASHBOARD", insert=(655, 128), fill=self.palette["accent"], font_size="10px", font_weight="bold", font_family=self.config.font_family))
-        right_panel.add(dwg.line(start=(655, 136), end=(900, 136), stroke=self.palette["border"], stroke_width=1))
+        right_panel.add(dwg.text("DEVELOPER DASHBOARD", insert=(right_x + 15, 128), fill=self.palette["accent"], font_size="9.5px", font_weight="bold", font_family=self.config.font_family))
+        right_panel.add(dwg.line(start=(right_x + 15, 136), end=(right_x + right_panel_w - 15, 136), stroke=self.palette["border"], stroke_width=1))
 
         # Personal Identity
-        right_panel.add(dwg.text(self.config.developer_name, insert=(655, 164), fill=self.palette["text"], font_size="16px", font_weight="700", font_family=self.config.font_family))
-        right_panel.add(dwg.text(self.config.role, insert=(655, 182), fill=self.palette["secondary"], font_size="10.5px", font_family=self.config.font_family))
-        right_panel.add(dwg.text(f"📍 {self.config.location}", insert=(655, 198), fill=self.palette["muted"], font_size="9.5px", font_family=self.config.font_family))
-        right_panel.add(dwg.text(f"🎓 {self.config.university}", insert=(655, 212), fill=self.palette["muted"], font_size="9.5px", font_family=self.config.font_family))
+        right_panel.add(dwg.text(self.config.developer_name, insert=(right_x + 15, 158), fill=self.palette["text"], font_size="15px", font_weight="700", font_family=self.config.font_family))
+        right_panel.add(dwg.text(self.config.role, insert=(right_x + 15, 174), fill=self.palette["secondary"], font_size="9.5px", font_weight="bold", font_family=self.config.font_family))
+        right_panel.add(dwg.text(f"📍 {self.config.location}", insert=(right_x + 15, 188), fill=self.palette["muted"], font_size="8.5px", font_family=self.config.font_family))
+        right_panel.add(dwg.text(f"🎓 {self.config.university}", insert=(right_x + 15, 200), fill=self.palette["muted"], font_size="8.5px", font_family=self.config.font_family))
         
         # Section Divider
-        right_panel.add(dwg.line(start=(655, 226), end=(900, 226), stroke=self.palette["border"], stroke_width=0.8, stroke_dasharray="4 4"))
+        right_panel.add(dwg.line(start=(right_x + 15, 212), end=(right_x + right_panel_w - 15, 212), stroke=self.palette["border"], stroke_width=0.8, stroke_dasharray="4 4"))
 
-        # Professional Experience
-        right_panel.add(dwg.text("INTERNSHIPS", insert=(655, 246), fill=self.palette["accent"], font_size="9.5px", font_weight="bold", font_family=self.config.font_family))
-        # Bluestock
-        right_panel.add(dwg.text("• Bluestock Fintech", insert=(655, 264), fill=self.palette["text"], font_size="9.5px", font_family=self.config.font_family))
-        right_panel.add(dwg.text("  Software Developer Intern", insert=(655, 276), fill=self.palette["muted"], font_size="8.5px", font_family=self.config.font_family))
-        # Infotact
-        right_panel.add(dwg.text("• Infotact Solutions", insert=(655, 292), fill=self.palette["text"], font_size="9.5px", font_family=self.config.font_family))
-        right_panel.add(dwg.text("  AI/ML Developer Intern", insert=(655, 304), fill=self.palette["muted"], font_size="8.5px", font_family=self.config.font_family))
+        # Internship Experience
+        right_panel.add(dwg.text("EXPERIENCE", insert=(right_x + 15, 228), fill=self.palette["accent"], font_size="9px", font_weight="bold", font_family=self.config.font_family))
+        right_panel.add(dwg.text("• Bluestock Fintech (Intern)", insert=(right_x + 15, 244), fill=self.palette["text"], font_size="8.5px", font_family=self.config.font_family))
+        right_panel.add(dwg.text("• Infotact Solutions (Intern)", insert=(right_x + 15, 256), fill=self.palette["text"], font_size="8.5px", font_family=self.config.font_family))
 
         # Core Projects
-        right_panel.add(dwg.text("FEATURED PROJECTS", insert=(655, 326), fill=self.palette["accent"], font_size="9.5px", font_weight="bold", font_family=self.config.font_family))
+        right_panel.add(dwg.text("PROJECTS", insert=(right_x + 15, 276), fill=self.palette["accent"], font_size="9px", font_weight="bold", font_family=self.config.font_family))
         for p_idx, project in enumerate(self.config.projects[:3]):
-            desc = "Advanced AI Systems Builder" if "NeuroPath" in project else "B2B Strategy Engine" if "Forge" in project else "Digital Twin Simulator"
-            y_proj = 344 + p_idx * 26
-            right_panel.add(dwg.text(f"• {project}", insert=(655, y_proj), fill=self.palette["highlight"], font_size="9.5px", font_family=self.config.font_family))
-            right_panel.add(dwg.text(f"  {desc}", insert=(655, y_proj + 11), fill=self.palette["muted"], font_size="8.5px", font_family=self.config.font_family))
+            y_proj = 292 + p_idx * 12
+            right_panel.add(dwg.text(f"• {project}", insert=(right_x + 15, y_proj), fill=self.palette["highlight"], font_size="8.5px", font_family=self.config.font_family))
 
-        # Skills & Tech
-        right_panel.add(dwg.text("TECHNICAL SPECIALIZATION", insert=(655, 432), fill=self.palette["accent"], font_size="9.5px", font_weight="bold", font_family=self.config.font_family))
-        langs_str = " • ".join(self.config.languages)
-        frame_str = " • ".join(self.config.frameworks)
-        right_panel.add(dwg.text(f"Langs: {langs_str}", insert=(655, 450), fill=self.palette["text"], font_size="9px", font_family=self.config.font_family))
-        right_panel.add(dwg.text(f"Tools: {frame_str}", insert=(655, 462), fill=self.palette["text"], font_size="9px", font_family=self.config.font_family))
-        right_panel.add(dwg.text(f"Focus: {self.config.status}", insert=(655, 474), fill=self.palette["secondary"], font_size="9px", font_family=self.config.font_family))
+        # Tech Specialization
+        right_panel.add(dwg.text("SPECIALIZATION", insert=(right_x + 15, 336), fill=self.palette["accent"], font_size="9px", font_weight="bold", font_family=self.config.font_family))
+        langs_str = " • ".join(self.config.languages[:3])
+        frame_str = " • ".join(self.config.frameworks[:3])
+        right_panel.add(dwg.text(f"Langs: {langs_str}", insert=(right_x + 15, 350), fill=self.palette["text"], font_size="8px", font_family=self.config.font_family))
+        right_panel.add(dwg.text(f"Tools: {frame_str}", insert=(right_x + 15, 362), fill=self.palette["text"], font_size="8px", font_family=self.config.font_family))
+        right_panel.add(dwg.text(f"Focus: {self.config.status}", insert=(right_x + 15, 374), fill=self.palette["secondary"], font_size="8px", font_family=self.config.font_family))
 
         # Divider
-        right_panel.add(dwg.line(start=(655, 488), end=(900, 488), stroke=self.palette["border"], stroke_width=0.8, stroke_dasharray="4 4"))
+        right_panel.add(dwg.line(start=(right_x + 15, 386), end=(right_x + right_panel_w - 15, 386), stroke=self.palette["border"], stroke_width=0.8, stroke_dasharray="4 4"))
 
-        # Links/Socials
-        right_panel.add(dwg.text(f"🌐 portfolio: {self.config.portfolio.replace('https://', '')}", insert=(655, 508), fill=self.palette["highlight"], font_size="9px", font_family=self.config.font_family))
-        right_panel.add(dwg.text(f"🐱 github: github.com/{self.config.github.split('/')[-1]}", insert=(655, 520), fill=self.palette["highlight"], font_size="9px", font_family=self.config.font_family))
-        right_panel.add(dwg.text(f"📧 email: {self.config.email}", insert=(655, 532), fill=self.palette["highlight"], font_size="9px", font_family=self.config.font_family))
+        # Links & Contact
+        right_panel.add(dwg.text("LINKS & CONTACT", insert=(right_x + 15, 402), fill=self.palette["accent"], font_size="9px", font_weight="bold", font_family=self.config.font_family))
+        right_panel.add(dwg.text(f"🌐 portfolio: animesh6532.netlify.app", insert=(right_x + 15, 416), fill=self.palette["highlight"], font_size="8px", font_family=self.config.font_family))
+        right_panel.add(dwg.text(f"🐱 github: github.com/{self.config.github.split('/')[-1]}", insert=(right_x + 15, 428), fill=self.palette["highlight"], font_size="8px", font_family=self.config.font_family))
+        right_panel.add(dwg.text(f"📧 email: {self.config.email}", insert=(right_x + 15, 440), fill=self.palette["highlight"], font_size="8px", font_family=self.config.font_family))
         
         # Git stats horizontal meters
-        right_panel.add(dwg.rect(insert=(655, 545), size=(245, 3), rx=1.5, ry=1.5, fill="#161B22"))
-        right_panel.add(dwg.rect(insert=(655, 545), size=(180, 3), rx=1.5, ry=1.5, fill=self.palette["accent"]))
-        right_panel.add(dwg.rect(insert=(655, 552), size=(245, 3), rx=1.5, ry=1.5, fill="#161B22"))
-        right_panel.add(dwg.rect(insert=(655, 552), size=(140, 3), rx=1.5, ry=1.5, fill=self.palette["secondary"]))
+        right_panel.add(dwg.rect(insert=(right_x + 15, 452), size=(right_panel_w - 30, 2), rx=1, ry=1, fill="#161B22"))
+        right_panel.add(dwg.rect(insert=(right_x + 15, 452), size=(150, 2), rx=1, ry=1, fill=self.palette["accent"]))
+        right_panel.add(dwg.rect(insert=(right_x + 15, 458), size=(right_panel_w - 30, 2), rx=1, ry=1, fill="#161B22"))
+        right_panel.add(dwg.rect(insert=(right_x + 15, 458), size=(120, 2), rx=1, ry=1, fill=self.palette["secondary"]))
 
         main_panel.add(right_panel)
+
+        # ==========================================
+        # BOTTOM REGION: WIDE ANIMATED TERMINAL CONSOLE
+        # ==========================================
+        bottom_area = dwg.g(id="bottom-area")
+        console_h = self.config.bottom_panel_height
+        
+        # Bottom Console Canvas (spans width under both panels: x=60, width=860)
+        bottom_area.add(dwg.rect(insert=(60, 485), size=(860, console_h), rx=12, ry=12, fill=self.palette["panel"], stroke=self.palette["border"], stroke_width=1.2))
+        
+        # Console Header
+        bottom_area.add(dwg.text("SYSTEM CONSOLE LOGS", insert=(80, 502), fill=self.palette["accent"], font_size="9.5px", font_weight="bold", font_family=self.config.font_family))
+        bottom_area.add(dwg.line(start=(80, 508), end=(900, 508), stroke=self.palette["border"], stroke_width=1))
+
+        # Placeholder Group for boot sequence logs
+        boot_logs = dwg.g(id="boot-logs")
+        bottom_area.add(boot_logs)
+        main_panel.add(bottom_area)
 
         # ==========================================
         # OVERLAYS & SCANLINE (Pure SVG SMIL)
@@ -227,7 +236,6 @@ class TerminalSVGBuilder:
             nx = 50 + (i * 47) % (width - 100)
             ny = 50 + (i * 29) % (height - 100)
             dot = dwg.circle(center=(nx, ny), r=0.8, fill="#ffffff", opacity=0.03)
-            # Dot flashes
             dot.add(svgwrite.animate.Animate("opacity", values="0.01;0.06;0.01", dur="4s", begin=f"{i * 0.15}s", repeatCount="indefinite"))
             noise_group.add(dot)
         main_panel.add(noise_group)

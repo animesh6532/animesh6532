@@ -29,6 +29,7 @@ I am a passionate **Software Developer** and **AI/ML Engineer** specializing in 
 
 ### 🐍 Contribution Snake
 <div align="center">
+  <!-- Dynamic Snake generated daily by GitHub Action -->
   <img src="https://raw.githubusercontent.com/animesh6532/animesh6532/output/github-contribution-grid-snake.svg" width="100%" alt="Contribution Snake Grid" />
 </div>
 
@@ -39,15 +40,74 @@ I am a passionate **Software Developer** and **AI/ML Engineer** specializing in 
 <div align="center">
   <table>
     <tr>
-      <td align="center">
-        <img src="https://github-readme-stats.vercel.app/api?username=animesh6532&show_icons=true&theme=tokyounight&count_private=true" alt="Animesh's Github Stats" />
+      <td align="center" width="50%">
+        <img src="https://github-stats-extended.vercel.app/api?username=animesh6532&show_icons=true&theme=tokyonight&count_private=true" alt="Animesh's Github Stats" />
       </td>
-      <td align="center">
-        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=animesh6532&layout=compact&theme=tokyounight" alt="Animesh's Top Languages" />
+      <td align="center" width="50%">
+        <img src="https://github-stats-extended.vercel.app/api/top-langs?username=animesh6532&layout=compact&theme=tokyonight" alt="Animesh's Top Languages" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center" colspan="2">
+        <img src="https://streak-stats.demolab.com?user=animesh6532&theme=tokyonight" width="100%" alt="GitHub Streak Stats" />
       </td>
     </tr>
   </table>
 </div>
+
+---
+
+## 🏆 GitHub Trophies
+
+<div align="center">
+  <img src="https://github-profile-trophy.vercel.app/?username=animesh6532&theme=tokyonight" width="100%" alt="GitHub Profile Trophies" />
+</div>
+
+---
+
+## 🗂 Profile Summary Cards
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=animesh6532&theme=tokyo_night" alt="Profile Details" />
+      </td>
+      <td align="center">
+        <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=animesh6532&theme=tokyo_night" alt="GitHub Stats Card" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center" colspan="2">
+        <img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=animesh6532&theme=tokyo_night" width="100%" alt="Repository Languages Card" />
+      </td>
+    </tr>
+  </table>
+</div>
+
+---
+
+## 🚀 Featured Projects
+
+Here are some of the advanced AI and software engineering projects I have built, structured for professional review:
+
+| 🧠 NeuroPath AI | 🔨 StartupForge AI |
+| :--- | :--- |
+| Computer vision model for brain tumor segmentation and pathing from raw MRI scans. | NLP pipeline that generates B2B strategy plans and financial models. |
+| **Tech Stack:** PyTorch • NumPy • OpenCV • Flask | **Tech Stack:** FastAPI • LangChain • OpenAI • Docker |
+| [💻 Repository](https://github.com/animesh6532/animesh6532) \| [🚀 Live Demo](https://animesh6532.netlify.app/) | [💻 Repository](https://github.com/animesh6532/animesh6532) \| [🚀 Live Demo](https://animesh6532.netlify.app/) |
+
+| 📡 NexTwin AI | 🌱 Fertilizer Recommendation AI |
+| :--- | :--- |
+| Digital Twin platform mapping industrial sensor inputs with anomaly warning triggers. | Multi-factor crop classifier calculating exact nitrogen/NPK nutrients required. |
+| **Tech Stack:** NumPy • SciPy • FastAPI • WebSockets | **Tech Stack:** Scikit-Learn • Pandas • Python |
+| [💻 Repository](https://github.com/animesh6532/animesh6532) \| [🚀 Live Demo](https://animesh6532.netlify.app/) | [💻 Repository](https://github.com/animesh6532/animesh6532) \| [🚀 Live Demo](https://animesh6532.netlify.app/) |
+
+| 📈 Stock Prediction Engine | 🛡 Transaction Fraud Detector |
+| :--- | :--- |
+| Time-series recurrent neural network (LSTM) forecasting equity market trends. | Unsupervised machine learning classifier flagging anomalous user transactions. |
+| **Tech Stack:** TensorFlow • Keras • NumPy • Pandas | **Tech Stack:** Scikit-Learn • Pandas • Python |
+| [💻 Repository](https://github.com/animesh6532/animesh6532) \| [🚀 Live Demo](https://animesh6532.netlify.app/) | [💻 Repository](https://github.com/animesh6532/animesh6532) \| [🚀 Live Demo](https://animesh6532.netlify.app/) |
 
 ---
 
@@ -62,45 +122,6 @@ I am a passionate **Software Developer** and **AI/ML Engineer** specializing in 
   <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" />
   <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" />
 </div>
-
----
-
-## 🚀 Featured Projects
-
-Here are some of the advanced AI and software engineering projects I have built:
-
-### 🧠 NeuroPath AI
-> **Medical Imaging Diagnosis & Analysis**
-> - **Overview**: Multi-modal computer vision model designed to perform automated brain tumor segmentation and cognitive disease pathing analysis from raw MRI scans.
-> - **Tech Stack**: PyTorch, NumPy, Python, OpenCV, Flask.
-> - **Impact**: Provides high-accuracy bounding boxes and localized pathing arrays to assist diagnostic radiologists.
-
-### 🔨 StartupForge AI
-> **B2B Strategy & Roadmap Compiler**
-> - **Overview**: Natural language processing pipeline that processes target market inputs to generate automated, data-driven go-to-market roadmaps and financial models.
-> - **Tech Stack**: FastAPI, LangChain, OpenAI API, Docker.
-> - **Impact**: Shortens startup exploration times and computes reliable projection models from real market data.
-
-### 📡 NexTwin AI
-> **Industrial Digital Twin & Predictive Simulator**
-> - **Overview**: Simulation platform mapping physical industrial sensor systems into virtual dashboards with anomaly warning triggers.
-> - **Tech Stack**: NumPy, SciPy, FastAPI, WebSocket.
-> - **Impact**: Predicts physical wear patterns and triggers warnings before machinery components fail.
-
-### 🌱 Fertilizer Recommendation AI
-> **Predictive Agriculture Yield Optimization**
-> - **Overview**: Multi-factor machine learning classifier calculating exact soil nutrients required based on nitrogen, phosphorus, potassium levels, and temperature.
-> - **Tech Stack**: Scikit-Learn, Pandas, Python.
-
-### 📈 Stock Prediction Engine
-> **Time-Series Financial Forecaster**
-> - **Overview**: Time-series recurrent neural network (LSTM) analyzing historic pricing indexes to forecast equity market trends.
-> - **Tech Stack**: TensorFlow, Keras, NumPy.
-
-### 🛡 Transaction Fraud Detector
-> **Real-time Anomaly Detection Pipeline**
-> - **Overview**: Unsupervised classifier targeting outlier transaction behaviors and flagging fraudulent charges.
-> - **Tech Stack**: Scikit-Learn, Python, Pandas.
 
 ---
 

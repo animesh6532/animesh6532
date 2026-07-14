@@ -112,6 +112,7 @@ class ProjectConfig:
     theme: str = "tokyo_night"
     animation_speed: float = 1.0
     typing_speed: float = 1.0
+    cursor_speed: float = 0.8
     glow_intensity: float = 2.4
     scanline_speed: float = 8.0
     terminal_width: int = 980
@@ -122,6 +123,9 @@ class ProjectConfig:
     font_family: str = "JetBrains Mono, Fira Code, Courier New, monospace"
     panel_padding: int = 20
     panel_margin: int = 15
+    left_panel_width: int = 610
+    right_panel_width: int = 235
+    bottom_panel_height: int = 80
     portrait_alignment: str = "center"
     contrast_enhancement: float = 1.45
     brightness_enhancement: float = 1.05
@@ -178,11 +182,15 @@ def load_config() -> ProjectConfig:
     config.density_mode = str(_get_env("DENSITY_MODE", config.density_mode))
     config.learning = str(_get_env("DEV_LEARNING", config.learning))
     config.typing_speed = float(_get_env("TYPING_SPEED", config.typing_speed))
+    config.cursor_speed = float(_get_env("CURSOR_SPEED", config.cursor_speed))
     config.glow_intensity = float(_get_env("GLOW_INTENSITY", config.glow_intensity))
     config.scanline_speed = float(_get_env("SCANLINE_SPEED", config.scanline_speed))
     config.font_family = str(_get_env("FONT_FAMILY", config.font_family))
     config.panel_padding = int(_get_env("PANEL_PADDING", config.panel_padding))
     config.panel_margin = int(_get_env("PANEL_MARGIN", config.panel_margin))
+    config.left_panel_width = int(_get_env("LEFT_PANEL_WIDTH", config.left_panel_width))
+    config.right_panel_width = int(_get_env("RIGHT_PANEL_WIDTH", config.right_panel_width))
+    config.bottom_panel_height = int(_get_env("BOTTOM_PANEL_HEIGHT", config.bottom_panel_height))
     config.portrait_alignment = str(_get_env("PORTRAIT_ALIGNMENT", config.portrait_alignment))
     config.contrast_enhancement = float(_get_env("CONTRAST_ENHANCEMENT", config.contrast_enhancement))
     config.brightness_enhancement = float(_get_env("BRIGHTNESS_ENHANCEMENT", config.brightness_enhancement))
