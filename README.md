@@ -30,7 +30,7 @@ I am a passionate **Software Developer** and **AI/ML Engineer** specializing in 
 ### 🐍 Contribution Snake
 <div align="center">
   <!-- Dynamic Snake generated daily by GitHub Action -->
-  <img src="https://raw.githubusercontent.com/animesh6532/animesh6532/output/github-contribution-grid-snake.svg" width="100%" alt="Contribution Snake Grid" />
+  <img src="output/github-contribution-grid-snake.svg" width="100%" alt="Contribution Snake Grid" />
 </div>
 
 ---
