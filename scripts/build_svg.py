@@ -64,7 +64,7 @@ class TerminalSVGBuilder:
 
         # Glow filter
         glow_filter = dwg.filter(id="glow", x="-30%", y="-30%", width="160%", height="160%")
-        glow_filter.fefeGaussianBlur = glow_filter.feGaussianBlur(in_="SourceGraphic", stdDeviation=f"{self.config.glow_intensity}", result="blur")
+        glow_filter.feGaussianBlur(in_="SourceGraphic", stdDeviation=f"{self.config.glow_intensity}", result="blur")
         glow_filter.feColorMatrix(type="matrix", values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1.7 0", result="glow")
         defs.add(glow_filter)
 
@@ -105,24 +105,52 @@ class TerminalSVGBuilder:
         # Panel Background
         left_area.add(dwg.rect(insert=(60, 100), size=(left_panel_w, left_panel_h), rx=16, ry=16, fill=self.palette["panel"], stroke=self.palette["border"], stroke_width=1.2))
 
-        # Generate 5 frames of character shifted ASCII for the morphing/living effect
+        # Generate 5 frames of character shifted ASCII for sequential morphing animation
         frame1 = ascii_lines
         frame2 = self.perturb_ascii(frame1, seed=101)
         frame3 = self.perturb_ascii(frame2, seed=102)
         frame4 = self.perturb_ascii(frame3, seed=103)
         frame5 = self.perturb_ascii(frame4, seed=104)
 
-        # Compute dynamic font-size and alignment
-        char_width = self.config.ascii_char_width_ratio * self.config.ascii_font_size
-        line_height = self.config.ascii_line_height
-        font_size = self.config.ascii_font_size
+        # Retrieve image aspect ratio for dynamic scaling
+        try:
+            from PIL import Image
+            img_path = self.config.project_root / self.config.image_path
+            with Image.open(img_path) as img:
+                img_w, img_h = img.size
+                img_aspect_ratio = img_w / img_h
+        except Exception:
+            img_aspect_ratio = 1.025  # Fallback aspect ratio (777 / 758)
 
-        portrait_w_px = len(ascii_lines[0]) * char_width if ascii_lines else 0
-        portrait_h_px = len(ascii_lines) * line_height
+        # Determine target dimensions filling exactly portrait_fill_ratio (92%) of the panel height/width bounds
+        fill_ratio = self.config.portrait_fill_ratio
+        target_max_w = left_panel_w * fill_ratio
+        target_max_h = left_panel_h * fill_ratio
 
+        if target_max_w / target_max_h > img_aspect_ratio:
+            # Height constrained
+            portrait_h_px = target_max_h
+            portrait_w_px = portrait_h_px * img_aspect_ratio
+        else:
+            # Width constrained
+            portrait_w_px = target_max_w
+            portrait_h_px = portrait_w_px / img_aspect_ratio
+
+        num_rows = len(ascii_lines)
+        num_cols = len(ascii_lines[0]) if num_rows > 0 else 1
+
+        # Calculate character height (line_height) and width, and derive font size
+        char_width = portrait_w_px / num_cols
+        line_height = portrait_h_px / num_rows
+        font_size = char_width / self.config.ascii_char_width_ratio
+
+        # Calculate coordinates to center the portrait inside the left panel
         x_start = 60 + (left_panel_w - portrait_w_px) // 2
         y_start = 100 + (left_panel_h - portrait_h_px) // 2
 
+        # 5 phase-locked animation groups wrapped in a container that drifts slowly for parallax
+        portrait_container = dwg.g(id="ascii-portrait-container", class_="portrait-drift-group")
+        
         # Group A (Frame 1)
         port_a = dwg.g(id="ascii-portrait-a", class_="shimmer-a")
         for idx, line in enumerate(frame1):
@@ -130,7 +158,7 @@ class TerminalSVGBuilder:
             text_el = dwg.text(line, insert=(x_start, y_pos), fill=self.palette["text"], font_size=f"{font_size}px", font_family=self.config.font_family)
             text_el["xml:space"] = "preserve"
             port_a.add(text_el)
-        left_area.add(port_a)
+        portrait_container.add(port_a)
 
         # Group B (Frame 2)
         port_b = dwg.g(id="ascii-portrait-b", class_="shimmer-b", opacity="0")
@@ -139,7 +167,7 @@ class TerminalSVGBuilder:
             text_el = dwg.text(line, insert=(x_start, y_pos), fill=self.palette["text"], font_size=f"{font_size}px", font_family=self.config.font_family)
             text_el["xml:space"] = "preserve"
             port_b.add(text_el)
-        left_area.add(port_b)
+        portrait_container.add(port_b)
 
         # Group C (Frame 3)
         port_c = dwg.g(id="ascii-portrait-c", class_="shimmer-c", opacity="0")
@@ -148,7 +176,7 @@ class TerminalSVGBuilder:
             text_el = dwg.text(line, insert=(x_start, y_pos), fill=self.palette["text"], font_size=f"{font_size}px", font_family=self.config.font_family)
             text_el["xml:space"] = "preserve"
             port_c.add(text_el)
-        left_area.add(port_c)
+        portrait_container.add(port_c)
 
         # Group D (Frame 4)
         port_d = dwg.g(id="ascii-portrait-d", class_="shimmer-d", opacity="0")
@@ -157,7 +185,7 @@ class TerminalSVGBuilder:
             text_el = dwg.text(line, insert=(x_start, y_pos), fill=self.palette["text"], font_size=f"{font_size}px", font_family=self.config.font_family)
             text_el["xml:space"] = "preserve"
             port_d.add(text_el)
-        left_area.add(port_d)
+        portrait_container.add(port_d)
 
         # Group E (Frame 5)
         port_e = dwg.g(id="ascii-portrait-e", class_="shimmer-e", opacity="0")
@@ -166,8 +194,9 @@ class TerminalSVGBuilder:
             text_el = dwg.text(line, insert=(x_start, y_pos), fill=self.palette["text"], font_size=f"{font_size}px", font_family=self.config.font_family)
             text_el["xml:space"] = "preserve"
             port_e.add(text_el)
-        left_area.add(port_e)
+        portrait_container.add(port_e)
 
+        left_area.add(portrait_container)
         main_panel.add(left_area)
 
         # ==========================================
@@ -260,11 +289,18 @@ class TerminalSVGBuilder:
         main_panel.add(bottom_area)
 
         # ==========================================
-        # OVERLAYS & SCANLINE (Pure SVG SMIL)
+        # OVERLAYS & SCANLINE (Soft vertical gradient)
         # ==========================================
-        scanline_group = dwg.g(id="scanline-group", opacity=0.22)
-        scanline_rect = dwg.rect(insert=(40, 40), size=(width - 80, 4), fill="#ffffff", opacity=0.08)
-        scanline_rect.add(svgwrite.animate.Animate("y", from_="40", to_=str(height - 40), dur=f"{self.config.scanline_speed}s", repeatCount="indefinite"))
+        # Define Scanline vertical gradient
+        scanline_grad = dwg.linearGradient((0, 0), (0, 1), id="scanline-grad")
+        scanline_grad.add_stop_color(0.0, "#ffffff", opacity=0.0)
+        scanline_grad.add_stop_color(0.5, self.palette["accent"], opacity=self.config.scanline_opacity)
+        scanline_grad.add_stop_color(1.0, "#ffffff", opacity=0.0)
+        defs.add(scanline_grad)
+
+        scanline_group = dwg.g(id="scanline-group")
+        scanline_rect = dwg.rect(insert=(40, 40), size=(width - 80, self.config.scanline_height), fill="url(#scanline-grad)")
+        scanline_rect.add(svgwrite.animate.Animate("y", from_="40", to_=str(height - 40 - self.config.scanline_height), dur=f"{self.config.scanline_speed}s", repeatCount="indefinite"))
         scanline_group.add(scanline_rect)
         main_panel.add(scanline_group)
 

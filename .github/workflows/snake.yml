@@ -41,6 +41,7 @@ jobs:
           # Commit only if there are actual diff changes
           if ! git diff --cached --quiet; then
             git commit -m "chore: update daily contribution snake grid [skip ci]"
+            git pull origin ${{ github.ref_name }} --rebase
             git push origin HEAD:${{ github.ref_name }}
             echo "Successfully updated and pushed contribution snake grids."
           else

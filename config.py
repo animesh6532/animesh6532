@@ -134,6 +134,9 @@ class ProjectConfig:
     ascii_font_size: float = 9.0
     ascii_line_height: float = 7.2
     ascii_char_width_ratio: float = 0.6
+    scanline_opacity: float = 0.18
+    scanline_height: float = 5.0
+    portrait_fill_ratio: float = 0.92
 
     @property
     def project_root(self) -> Path:
@@ -204,4 +207,7 @@ def load_config() -> ProjectConfig:
     config.ascii_font_size = float(_get_env("ASCII_FONT_SIZE", config.ascii_font_size))
     config.ascii_line_height = float(_get_env("ASCII_LINE_HEIGHT", config.ascii_line_height))
     config.ascii_char_width_ratio = float(_get_env("ASCII_CHAR_WIDTH_RATIO", config.ascii_char_width_ratio))
+    config.scanline_opacity = float(_get_env("SCANLINE_OPACITY", config.scanline_opacity))
+    config.scanline_height = float(_get_env("SCANLINE_HEIGHT", config.scanline_height))
+    config.portrait_fill_ratio = float(_get_env("PORTRAIT_FILL_RATIO", config.portrait_fill_ratio))
     return config
