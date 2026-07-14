@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560">
+  <rect width="900" height="560" fill="#0D1117" />
+  <rect x="40" y="38" width="820" height="484" rx="24" ry="24" fill="#161B22" stroke="#00F7FF" stroke-width="1.2" />
+  <circle cx="70" cy="68" r="7" fill="#FF5F56" />
+  <circle cx="96" cy="68" r="7" fill="#FFBD2E" />
+  <circle cx="122" cy="68" r="7" fill="#27C93F" />
+  <text x="180" y="72" fill="#7D8590" font-family="JetBrains Mono, Fira Code, monospace" font-size="12">bash ~/profile-generator</text>
+  <rect x="70" y="110" width="420" height="380" rx="18" ry="18" fill="#0D1422" stroke="#243244" stroke-width="1.2" />
+  <rect x="520" y="110" width="300" height="380" rx="18" ry="18" fill="#0D1422" stroke="#243244" stroke-width="1.2" />
+</svg>

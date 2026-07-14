@@ -1,0 +1,41 @@
+name: Build Terminal SVG
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Generate terminal assets
+        run: |
+          python scripts/generate_ascii.py
+          python scripts/optimize_ascii.py
+          python scripts/build_svg.py
+          python scripts/animate_terminal.py
+          python scripts/export_svg.py
+
+      - name: Commit generated assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/ascii.txt assets/terminal.svg assets/portrait.svg
+          git commit -m "chore: update generated terminal assets" || echo "No changes to commit"
+          git push
