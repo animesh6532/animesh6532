@@ -38,12 +38,15 @@ class TerminalAnimator:
             defs = ET.Element("{http://www.w3.org/2000/svg}defs")
             root.insert(0, defs)
 
-        # 2. Inject CSS Stylesheet (using config.cursor_speed)
+        # 2. Inject CSS Stylesheet
+        # Loop animation cycle duration is based on config.animation_speed
+        cycle_dur = 2.0 * self.config.animation_speed
+        delay_time = 2.5 * self.config.animation_speed
+
         style_content = f"""
         @keyframes crt-flicker {{
-            0% {{ opacity: 0.985; }}
-            50% {{ opacity: 0.995; }}
-            100% {{ opacity: 0.985; }}
+            0%, 100% {{ opacity: 0.99; }}
+            50% {{ opacity: 0.98; }}
         }}
         @keyframes blink-cursor {{
             0%, 49% {{ opacity: 1; }}
@@ -55,27 +58,42 @@ class TerminalAnimator:
             100% {{ stroke-opacity: 0.35; }}
         }}
         @keyframes shimmer-a {{
-            0%, 33.2% {{ opacity: 1; }}
-            33.3%, 99.9% {{ opacity: 0; }}
+            0%, 19.9% {{ opacity: 1; }}
+            20%, 100% {{ opacity: 0; }}
         }}
         @keyframes shimmer-b {{
-            0%, 33.2% {{ opacity: 0; }}
-            33.3%, 66.5% {{ opacity: 1; }}
-            66.6%, 99.9% {{ opacity: 0; }}
+            0%, 19.9% {{ opacity: 0; }}
+            20%, 39.9% {{ opacity: 1; }}
+            40%, 100% {{ opacity: 0; }}
         }}
         @keyframes shimmer-c {{
-            0%, 66.5% {{ opacity: 0; }}
-            66.6%, 99.9% {{ opacity: 1; }}
+            0%, 39.9% {{ opacity: 0; }}
+            40%, 59.9% {{ opacity: 1; }}
+            60%, 100% {{ opacity: 0; }}
+        }}
+        @keyframes shimmer-d {{
+            0%, 59.9% {{ opacity: 0; }}
+            60%, 79.9% {{ opacity: 1; }}
+            80%, 100% {{ opacity: 0; }}
+        }}
+        @keyframes shimmer-e {{
+            0%, 79.9% {{ opacity: 0; }}
+            80%, 99.9% {{ opacity: 1; }}
+            100% {{ opacity: 0; }}
         }}
         @keyframes glow-pulse {{
             0% {{ opacity: 0.25; filter: drop-shadow(0 0 1px {self.palette_color('accent')}); }}
             50% {{ opacity: 0.65; filter: drop-shadow(0 0 4px {self.palette_color('accent')}); }}
             100% {{ opacity: 0.25; filter: drop-shadow(0 0 1px {self.palette_color('accent')}); }}
         }}
+        @keyframes brightness-pulse {{
+            0%, 100% {{ filter: brightness(0.98); }}
+            50% {{ filter: brightness(1.05); }}
+        }}
 
         /* Apply Animations */
         #main-terminal {{
-            animation: crt-flicker 0.16s infinite;
+            animation: crt-flicker 0.15s infinite, brightness-pulse 4s ease-in-out infinite;
         }}
         .blinking-cursor {{
             animation: blink-cursor {self.config.cursor_speed}s infinite;
@@ -84,39 +102,44 @@ class TerminalAnimator:
             animation: border-pulse 4s ease-in-out infinite;
         }}
         .shimmer-a {{
-            animation: shimmer-a 1.2s infinite steps(1);
-            animation-delay: {2.5 * self.config.animation_speed}s;
+            animation: shimmer-a {cycle_dur}s infinite steps(1);
+            animation-delay: {delay_time}s;
         }}
         .shimmer-b {{
-            animation: shimmer-b 1.2s infinite steps(1);
-            animation-delay: {2.5 * self.config.animation_speed}s;
+            animation: shimmer-b {cycle_dur}s infinite steps(1);
+            animation-delay: {delay_time}s;
         }}
         .shimmer-c {{
-            animation: shimmer-c 1.2s infinite steps(1);
-            animation-delay: {2.5 * self.config.animation_speed}s;
+            animation: shimmer-c {cycle_dur}s infinite steps(1);
+            animation-delay: {delay_time}s;
+        }}
+        .shimmer-d {{
+            animation: shimmer-d {cycle_dur}s infinite steps(1);
+            animation-delay: {delay_time}s;
+        }}
+        .shimmer-e {{
+            animation: shimmer-e {cycle_dur}s infinite steps(1);
+            animation-delay: {delay_time}s;
         }}
         .portrait-glow-layer {{
             animation: glow-pulse 3s ease-in-out infinite alternate;
-            animation-delay: {2.6 * self.config.animation_speed}s;
+            animation-delay: {delay_time + 0.1}s;
         }}
         """
         style_el = ET.Element("{http://www.w3.org/2000/svg}style")
         style_el.text = style_content
         defs.append(style_el)
 
-        # 3. Create Clipping Paths for Console Logs
-        # Console starts at y=485, logs run at y=521, 532, 543, 554.
+        # 3. Create Clipping Paths for Console Logs (Bottom console: y=675, height=100)
         boot_timeline = [
-            # Group 1 (begin, dur)
-            ("Booting Developer Console...", 0.0, 0.25),
-            ("Loading Profile...", 0.25, 0.25),
-            ("Loading Resume...", 0.5, 0.25),
-            ("Loading AI Projects...", 0.75, 0.25),
-            # Group 2
-            ("Loading GitHub Data...", 1.2, 0.25),
-            ("Loading Contribution Graph & Widgets...", 1.45, 0.25),
-            ("Rendering Portrait...", 1.7, 0.25),
-            ("Dashboard Ready.", 1.95, 0.25)
+            # Group 1 (y = 715, 727, 739, 751)
+            ("Booting Developer Console...", 0.0, 0.4),
+            ("Loading Developer Profile...", 0.4, 0.4),
+            ("Loading Projects...", 0.8, 0.4),
+            ("Loading GitHub Data...", 1.2, 0.4),
+            # Group 2 (y = 715, 727)
+            ("Rendering ASCII Portrait...", 1.8, 0.4),
+            ("Dashboard Ready.", 2.2, 0.4)
         ]
 
         # Inject clip paths for boot lines
@@ -125,12 +148,12 @@ class TerminalAnimator:
             clip_path = ET.Element("{http://www.w3.org/2000/svg}clipPath", attrib={"id": clip_id})
             
             row_idx = idx % 4
-            y_pos = 521 + row_idx * 11
+            y_pos = 715 + row_idx * 12
             rect = ET.Element("{http://www.w3.org/2000/svg}rect", attrib={
                 "x": "80",
-                "y": str(y_pos - 9),
+                "y": str(y_pos - 10),
                 "width": "0",
-                "height": "13"
+                "height": "14"
             })
             
             begin_time = f"{start * self.config.typing_speed}s"
@@ -146,15 +169,15 @@ class TerminalAnimator:
             clip_path.append(rect)
             defs.append(clip_path)
 
-        # ClipPath for Console final prompt (types from 2.5s to 3.1s)
+        # ClipPath for Console final prompt (types from 2.6s to 3.2s on Row 2: y = 739)
         prompt_clip = ET.Element("{http://www.w3.org/2000/svg}clipPath", attrib={"id": "prompt-clip"})
         prompt_rect = ET.Element("{http://www.w3.org/2000/svg}rect", attrib={
             "x": "80",
-            "y": "528",
+            "y": "729",
             "width": "0",
-            "height": "20"
+            "height": "16"
         })
-        prompt_begin = f"{2.5 * self.config.animation_speed}s"
+        prompt_begin = f"{2.6 * self.config.animation_speed}s"
         prompt_dur = f"{0.6 * self.config.typing_speed}s"
         prompt_anim = ET.Element("{http://www.w3.org/2000/svg}animate", attrib={
             "attributeName": "width",
@@ -171,29 +194,20 @@ class TerminalAnimator:
         # 4. Populate and Animate Boot Logs
         boot_logs_g = root.find(".//svg:g[@id='boot-logs']", ns)
         if boot_logs_g is not None:
-            # Subgroup 1: Boot Logs Group 1 (fades out at 1.15s)
+            # Subgroup 1: Boot Logs Group 1 (fades out at 1.7s)
             g1 = ET.Element("{http://www.w3.org/2000/svg}g", attrib={"id": "boot-group-1"})
             g1_fade = ET.Element("{http://www.w3.org/2000/svg}animate", attrib={
                 "attributeName": "opacity",
                 "from": "1",
                 "to": "0",
-                "dur": "0.1s",
-                "begin": f"{1.15 * self.config.animation_speed}s",
+                "dur": "0.15s",
+                "begin": f"{1.7 * self.config.animation_speed}s",
                 "fill": "freeze"
             })
             g1.append(g1_fade)
             
-            # Subgroup 2: Boot Logs Group 2 (fades out at 2.45s)
+            # Subgroup 2: Boot Logs Group 2 (does NOT fade out, stays on screen!)
             g2 = ET.Element("{http://www.w3.org/2000/svg}g", attrib={"id": "boot-group-2"})
-            g2_fade = ET.Element("{http://www.w3.org/2000/svg}animate", attrib={
-                "attributeName": "opacity",
-                "from": "1",
-                "to": "0",
-                "dur": "0.1s",
-                "begin": f"{2.45 * self.config.animation_speed}s",
-                "fill": "freeze"
-            })
-            g2.append(g2_fade)
 
             boot_logs_g.append(g1)
             boot_logs_g.append(g2)
@@ -201,7 +215,7 @@ class TerminalAnimator:
             # Insert texts into groups
             for idx, (text_str, start, dur) in enumerate(boot_timeline):
                 row_idx = idx % 4
-                y_pos = 521 + row_idx * 11
+                y_pos = 715 + row_idx * 12
                 text_el = ET.Element("{http://www.w3.org/2000/svg}text", attrib={
                     "x": "80",
                     "y": str(y_pos),
@@ -215,7 +229,7 @@ class TerminalAnimator:
                 # Apply colors
                 if idx == 0 or idx == 4:
                     text_el.set("fill", self.palette_color("accent"))
-                elif idx == 7:
+                elif idx == 5:
                     text_el.set("fill", self.palette_color("green"))
 
                 text_el.text = text_str
@@ -236,11 +250,10 @@ class TerminalAnimator:
                 else:
                     g2.append(text_el)
 
-            # 5. Populate and Animate Interactive Console Prompt
-            # Standard prompt types centered vertically at y=542
+            # 5. Populate and Animate Interactive Console Prompt (Row 2: y = 739)
             prompt_text_el = ET.Element("{http://www.w3.org/2000/svg}text", attrib={
                 "x": "80",
-                "y": "542",
+                "y": "739",
                 "fill": self.palette_color("accent"),
                 "font-size": "9.5px",
                 "font-family": self.config.font_family,
@@ -258,14 +271,12 @@ class TerminalAnimator:
                 "fill": "freeze"
             })
             prompt_text_el.append(prompt_vis)
-            boot_logs_g.append(prompt_text_el)
+            g2.append(prompt_text_el)
 
             # Blinking cursor block: █
-            # Start x = 80 + 19 * 5.4 = ~182.
-            # End x = 80 + 48 * 5.4 = ~339.
             cursor_el = ET.Element("{http://www.w3.org/2000/svg}text", attrib={
-                "x": "182",
-                "y": "542",
+                "x": "188",
+                "y": "739",
                 "fill": self.palette_color("green"),
                 "font-size": "9.5px",
                 "font-family": self.config.font_family,
@@ -286,17 +297,16 @@ class TerminalAnimator:
             
             cursor_move = ET.Element("{http://www.w3.org/2000/svg}animate", attrib={
                 "attributeName": "x",
-                "from": "182",
-                "to": "339",
+                "from": "188",
+                "to": "340",
                 "dur": prompt_dur,
                 "begin": prompt_begin,
                 "fill": "freeze"
             })
             cursor_el.append(cursor_move)
-            boot_logs_g.append(cursor_el)
+            g2.append(cursor_el)
 
-        # 6. Duplicate and Animate Portrait Layers
-        # Stagger start = 1.45s (when rendering portrait types)
+        # 6. Duplicate and Animate Portrait Layers (Glow base uses A)
         stagger_start = 1.45 * self.config.animation_speed
         
         left_area = root.find(".//svg:g[@id='left-area']", ns)
@@ -352,7 +362,6 @@ class TerminalAnimator:
         # 7. Animate Right Panel Content Loading (Fades in at t=2.3s)
         right_panel = root.find(".//svg:g[@id='right-panel']", ns)
         if right_panel is not None:
-            # Wrap right panel details in a subgroup to slide-load
             children = list(right_panel)
             bg_rect = None
             for child in children:

@@ -71,15 +71,15 @@ I am a passionate **Software Developer** and **AI/ML Engineer** specializing in 
   <table>
     <tr>
       <td align="center">
-        <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=animesh6532&theme=tokyo_night" alt="Profile Details" />
+        <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=animesh6532&theme=tokyonight" alt="Profile Details" />
       </td>
       <td align="center">
-        <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=animesh6532&theme=tokyo_night" alt="GitHub Stats Card" />
+        <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=animesh6532&theme=tokyonight" alt="GitHub Stats Card" />
       </td>
     </tr>
     <tr>
       <td align="center" colspan="2">
-        <img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=animesh6532&theme=tokyo_night" width="100%" alt="Repository Languages Card" />
+        <img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=animesh6532&theme=tokyonight" width="100%" alt="Repository Languages Card" />
       </td>
     </tr>
   </table>
@@ -95,19 +95,19 @@ Here are some of the advanced AI and software engineering projects I have built,
 | :--- | :--- |
 | Computer vision model for brain tumor segmentation and pathing from raw MRI scans. | NLP pipeline that generates B2B strategy plans and financial models. |
 | **Tech Stack:** PyTorch • NumPy • OpenCV • Flask | **Tech Stack:** FastAPI • LangChain • OpenAI • Docker |
-| [💻 Repository](https://github.com/animesh6532/animesh6532) \| [🚀 Live Demo](https://animesh6532.netlify.app/) | [💻 Repository](https://github.com/animesh6532/animesh6532) \| [🚀 Live Demo](https://animesh6532.netlify.app/) |
+| [💻 Repository](https://github.com/animesh6532/NeuroPath-AI) \| [🚀 Live Demo](https://animesh6532.netlify.app/) | [💻 Repository](https://github.com/animesh6532/StartupForge-AI) \| [🚀 Live Demo](https://animesh6532.netlify.app/) |
 
 | 📡 NexTwin AI | 🌱 Fertilizer Recommendation AI |
 | :--- | :--- |
 | Digital Twin platform mapping industrial sensor inputs with anomaly warning triggers. | Multi-factor crop classifier calculating exact nitrogen/NPK nutrients required. |
 | **Tech Stack:** NumPy • SciPy • FastAPI • WebSockets | **Tech Stack:** Scikit-Learn • Pandas • Python |
-| [💻 Repository](https://github.com/animesh6532/animesh6532) \| [🚀 Live Demo](https://animesh6532.netlify.app/) | [💻 Repository](https://github.com/animesh6532/animesh6532) \| [🚀 Live Demo](https://animesh6532.netlify.app/) |
+| [💻 Repository](https://github.com/animesh6532/NexTwin-AI) \| [🚀 Live Demo](https://animesh6532.netlify.app/) | [💻 Repository](https://github.com/animesh6532/Fertilizer-Recommendation-AI) \| [🚀 Live Demo](https://animesh6532.netlify.app/) |
 
 | 📈 Stock Prediction Engine | 🛡 Transaction Fraud Detector |
 | :--- | :--- |
 | Time-series recurrent neural network (LSTM) forecasting equity market trends. | Unsupervised machine learning classifier flagging anomalous user transactions. |
 | **Tech Stack:** TensorFlow • Keras • NumPy • Pandas | **Tech Stack:** Scikit-Learn • Pandas • Python |
-| [💻 Repository](https://github.com/animesh6532/animesh6532) \| [🚀 Live Demo](https://animesh6532.netlify.app/) | [💻 Repository](https://github.com/animesh6532/animesh6532) \| [🚀 Live Demo](https://animesh6532.netlify.app/) |
+| [💻 Repository](https://github.com/animesh6532/Stock-Prediction-Engine) \| [🚀 Live Demo](https://animesh6532.netlify.app/) | [💻 Repository](https://github.com/animesh6532/Transaction-Fraud-Detector) \| [🚀 Live Demo](https://animesh6532.netlify.app/) |
 
 ---
 

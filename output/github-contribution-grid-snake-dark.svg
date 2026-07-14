@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="828" height="178" viewBox="0 0 828 178">
+  <rect width="828" height="178" rx="8" fill="#090A0F" stroke="#1F2937" stroke-width="1"/>
+  <!-- Decorative grid of contributions -->
+  <g transform="translate(15, 20)">
+    <!-- Column 1 -->
+    <rect x="0" y="0" width="10" height="10" rx="2" fill="#111827"/>
+    <rect x="0" y="15" width="10" height="10" rx="2" fill="#065f46"/>
+    <rect x="0" y="30" width="10" height="10" rx="2" fill="#111827"/>
+    <rect x="0" y="45" width="10" height="10" rx="2" fill="#111827"/>
+    <rect x="0" y="60" width="10" height="10" rx="2" fill="#059669"/>
+    <rect x="0" y="75" width="10" height="10" rx="2" fill="#047857"/>
+    <rect x="0" y="90" width="10" height="10" rx="2" fill="#111827"/>
+
+    <!-- Column 2 -->
+    <rect x="15" y="0" width="10" height="10" rx="2" fill="#111827"/>
+    <rect x="15" y="15" width="10" height="10" rx="2" fill="#111827"/>
+    <rect x="15" y="30" width="10" height="10" rx="2" fill="#065f46"/>
+    <rect x="15" y="45" width="10" height="10" rx="2" fill="#34d399"/>
+    <rect x="15" y="60" width="10" height="10" rx="2" fill="#059669"/>
+    <rect x="15" y="75" width="10" height="10" rx="2" fill="#111827"/>
+    <rect x="15" y="90" width="10" height="10" rx="2" fill="#111827"/>
+
+    <!-- Column 3 -->
+    <rect x="30" y="0" width="10" height="10" rx="2" fill="#111827"/>
+    <rect x="30" y="15" width="10" height="10" rx="2" fill="#047857"/>
+    <rect x="30" y="30" width="10" height="10" rx="2" fill="#34d399"/>
+    <rect x="30" y="45" width="10" height="10" rx="2" fill="#059669"/>
+    <rect x="30" y="60" width="10" height="10" rx="2" fill="#111827"/>
+    <rect x="30" y="75" width="10" height="10" rx="2" fill="#111827"/>
+    <rect x="30" y="90" width="10" height="10" rx="2" fill="#065f46"/>
+
+    <!-- Column 4 (Snake starts here) -->
+    <rect x="45" y="0" width="10" height="10" rx="2" fill="#111827"/>
+    <rect x="45" y="15" width="10" height="10" rx="2" fill="#065f46"/>
+    <rect x="45" y="30" width="10" height="10" rx="2" fill="#047857"/>
+    <rect x="45" y="45" width="10" height="10" rx="2" fill="#34d399" id="food-1"/>
+    <rect x="45" y="60" width="10" height="10" rx="2" fill="#111827"/>
+    <rect x="45" y="75" width="10" height="10" rx="2" fill="#047857"/>
+    <rect x="45" y="90" width="10" height="10" rx="2" fill="#111827"/>
+
+    <!-- Snake body path animation -->
+    <!-- Head -->
+    <rect x="45" y="45" width="10" height="10" rx="2" fill="#fbbf24" opacity="0.9">
+      <animate attributeName="fill" values="#fbbf24;#f59e0b;#fbbf24" dur="2s" repeatCount="indefinite"/>
+    </rect>
+    <!-- Tail segment 1 -->
+    <rect x="30" y="45" width="10" height="10" rx="2" fill="#f59e0b"/>
+    <!-- Tail segment 2 -->
+    <rect x="30" y="30" width="10" height="10" rx="2" fill="#f59e0b"/>
+  </g>
+
+  <!-- Labels -->
+  <text x="15" y="150" fill="#4B5563" font-size="12" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif">
+    Contribution Snake Simulator - Generating Daily Activity...
+  </text>
+</svg>

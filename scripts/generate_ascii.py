@@ -31,7 +31,9 @@ class ASCIIImageGenerator:
         width, height = image.size
         aspect_ratio = height / max(width, 1)
         target_width = self.config.ascii_width
-        target_height = max(8, int(aspect_ratio * target_width * 0.55))
+        compression_factor = (self.config.ascii_char_width_ratio * self.config.ascii_font_size) / self.config.ascii_line_height
+        target_height = max(8, int(aspect_ratio * target_width * compression_factor))
+        self.logger.info("Resizing image from %s to %s (compression factor: %.4f)", (width, height), (target_width, target_height), compression_factor)
         return image.resize((target_width, target_height))
 
     def enhance_image(self, image: Image.Image) -> Image.Image:

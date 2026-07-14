@@ -88,12 +88,12 @@ class ProjectConfig:
 
     developer_name: str = "Animesh Sahoo"
     role: str = "Software Developer / AI/ML Engineer"
-    languages: List[str] = field(default_factory=lambda: ["Python", "SQL", "C", "Java"])
-    frameworks: List[str] = field(default_factory=lambda: ["PyTorch", "FastAPI", "Docker", "Flask"])
+    languages: List[str] = field(default_factory=lambda: ["Python", "Java", "SQL"])
+    frameworks: List[str] = field(default_factory=lambda: ["FastAPI", "Machine Learning", "Backend"])
     operating_system: str = "Linux / Windows"
     editor: str = "VS Code / Neovim"
     location: str = "West Bengal, India"
-    status: str = "Building AI Products"
+    status: str = "Building scalable AI-powered systems"
     university: str = "Brainware University"
     experience: str = "Bluestock Fintech • Infotact Solutions"
     portfolio: str = "https://animesh6532.netlify.app/"
@@ -106,29 +106,34 @@ class ProjectConfig:
     stars: int = 120
     followers: int = 350
     commits: int = 1842
-    skills: List[str] = field(default_factory=lambda: ["Backend", "AI", "Machine Learning", "Python"])
+    skills: List[str] = field(default_factory=lambda: ["Python", "Java", "SQL", "FastAPI", "Machine Learning", "Backend"])
     image_path: str = "assets/profile.jpg"
-    ascii_width: int = 90
+    ascii_width: int = 76
     theme: str = "tokyo_night"
     animation_speed: float = 1.0
     typing_speed: float = 1.0
     cursor_speed: float = 0.8
-    glow_intensity: float = 2.4
+    glow_intensity: float = 3.0
     scanline_speed: float = 8.0
     terminal_width: int = 980
-    terminal_height: int = 620
+    terminal_height: int = 800
     ascii_chars: str = "@%#*+=-:. "
     density_mode: str = "balanced"
     learning: str = "NexTwin AI / LLMs"
     font_family: str = "JetBrains Mono, Fira Code, Courier New, monospace"
     panel_padding: int = 20
     panel_margin: int = 15
-    left_panel_width: int = 610
-    right_panel_width: int = 235
-    bottom_panel_height: int = 80
+    left_panel_width: int = 630
+    right_panel_width: int = 250
+    left_panel_height: int = 560
+    right_panel_height: int = 560
+    bottom_panel_height: int = 100
     portrait_alignment: str = "center"
     contrast_enhancement: float = 1.45
     brightness_enhancement: float = 1.05
+    ascii_font_size: float = 9.0
+    ascii_line_height: float = 7.2
+    ascii_char_width_ratio: float = 0.6
 
     @property
     def project_root(self) -> Path:
@@ -190,8 +195,13 @@ def load_config() -> ProjectConfig:
     config.panel_margin = int(_get_env("PANEL_MARGIN", config.panel_margin))
     config.left_panel_width = int(_get_env("LEFT_PANEL_WIDTH", config.left_panel_width))
     config.right_panel_width = int(_get_env("RIGHT_PANEL_WIDTH", config.right_panel_width))
+    config.left_panel_height = int(_get_env("LEFT_PANEL_HEIGHT", config.left_panel_height))
+    config.right_panel_height = int(_get_env("RIGHT_PANEL_HEIGHT", config.right_panel_height))
     config.bottom_panel_height = int(_get_env("BOTTOM_PANEL_HEIGHT", config.bottom_panel_height))
     config.portrait_alignment = str(_get_env("PORTRAIT_ALIGNMENT", config.portrait_alignment))
     config.contrast_enhancement = float(_get_env("CONTRAST_ENHANCEMENT", config.contrast_enhancement))
     config.brightness_enhancement = float(_get_env("BRIGHTNESS_ENHANCEMENT", config.brightness_enhancement))
+    config.ascii_font_size = float(_get_env("ASCII_FONT_SIZE", config.ascii_font_size))
+    config.ascii_line_height = float(_get_env("ASCII_LINE_HEIGHT", config.ascii_line_height))
+    config.ascii_char_width_ratio = float(_get_env("ASCII_CHAR_WIDTH_RATIO", config.ascii_char_width_ratio))
     return config
