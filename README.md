@@ -95,13 +95,13 @@ Here are some of the advanced AI and software engineering projects I have built,
 | :--- | :--- |
 | Computer vision model for brain tumor segmentation and pathing from raw MRI scans. | NLP pipeline that generates B2B strategy plans and financial models. |
 | **Tech Stack:** PyTorch • NumPy • OpenCV • Flask | **Tech Stack:** FastAPI • LangChain • OpenAI • Docker |
-| [💻 Repository](https://github.com/animesh6532/NeuroPath-AI) \| [🚀 Live Demo](https://animesh6532.netlify.app/) | [💻 Repository](https://github.com/animesh6532/StartupForge-AI) \| [🚀 Live Demo](https://animesh6532.netlify.app/) |
+| [💻 Repository](https://github.com/animesh6532/NeuroPath-AI) \| [🚀 Live Demo](https://animesh6532.netlify.app/) | [💻 Repository](https://github.com/animesh6532/StartupForge-AI) \| [🚀 Live Demo](https://animeshportfolio6532.netlify.app/) |
 
 | 📡 NexTwin AI | 🌱 Fertilizer Recommendation AI |
 | :--- | :--- |
 | Digital Twin platform mapping industrial sensor inputs with anomaly warning triggers. | Multi-factor crop classifier calculating exact nitrogen/NPK nutrients required. |
 | **Tech Stack:** NumPy • SciPy • FastAPI • WebSockets | **Tech Stack:** Scikit-Learn • Pandas • Python |
-| [💻 Repository](https://github.com/animesh6532/NexTwin-AI) \| [🚀 Live Demo](https://animesh6532.netlify.app/) | [💻 Repository](https://github.com/animesh6532/Fertilizer-Recommendation-AI) \| [🚀 Live Demo](https://animesh6532.netlify.app/) |
+| [💻 Repository](https://github.com/animesh6532/NexTwin-AI) \| [🚀 Live Demo](https://animesh6532.netlify.app/) | [💻 Repository](https://github.com/animesh6532/Fertilizer-Recommendation-AI) \| [🚀 Live Demo](https://animeshportfolio6532.netlify.app/) |
 
 | 📈 Stock Prediction Engine | 🛡 Transaction Fraud Detector |
 | :--- | :--- |
@@ -148,7 +148,7 @@ Here are some of the advanced AI and software engineering projects I have built,
     <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email Contact" />
   </a>
   &nbsp;&nbsp;
-  <a href="https://animesh6532.netlify.app/">
+  <a href="https://animeshportfolio6532.netlify.app/">
     <img src="https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Portfolio Website" />
   </a>
 </div>
