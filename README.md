@@ -107,7 +107,7 @@ Here are some of the advanced AI and software engineering projects I have built,
 | :--- | :--- |
 | Time-series recurrent neural network (LSTM) forecasting equity market trends. | Unsupervised machine learning classifier flagging anomalous user transactions. |
 | **Tech Stack:** TensorFlow • Keras • NumPy • Pandas | **Tech Stack:** Scikit-Learn • Pandas • Python |
-| [💻 Repository](https://github.com/animesh6532/Stock-Prediction-Engine) \| [🚀 Live Demo](https://animesh6532.netlify.app/) | [💻 Repository](https://github.com/animesh6532/Transaction-Fraud-Detector) \| [🚀 Live Demo](https://animesh6532.netlify.app/) |
+| [💻 Repository](https://github.com/animesh6532/Stock-Prediction-Engine) \| [🚀 Live Demo](https://animeshportfolio6532.netlify.app/) | [💻 Repository](https://github.com/animesh6532/Transaction-Fraud-Detector) \| [🚀 Live Demo](https://animesh6532.netlify.app/) |
 
 ---
 
